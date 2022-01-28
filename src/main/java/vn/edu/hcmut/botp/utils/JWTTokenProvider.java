@@ -1,4 +1,4 @@
-package vn.edu.hcmut.botp.model;
+package vn.edu.hcmut.botp.utils;
 
 
 import io.jsonwebtoken.Claims;
@@ -7,9 +7,14 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
+import vn.edu.hcmut.botp.model.MyUserDetails;
 
+import javax.annotation.PostConstruct;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 @Slf4j
@@ -20,14 +25,16 @@ public class JWTTokenProvider {
 
     private final long JWT_EXPIRATION = 604800000L;
 
+
     public String generateToken(MyUserDetails userDetails) {
         var now = System.currentTimeMillis();
         Date expiryDate = new Date(now + JWT_EXPIRATION);
+        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
         return Jwts.builder()
-                .setSubject(Long.toString(userDetails.getUser().getId()))
+                .setSubject("Auth")
                 .setIssuedAt(new Date(now))
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, JWT_SECRET)
+                .signWith(key, SignatureAlgorithm.HS512)
                 .compact();
     }
 

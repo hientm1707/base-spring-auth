@@ -1,13 +1,11 @@
 package vn.edu.hcmut.botp.service;
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import vn.edu.hcmut.botp.model.MyUserDetails;
-import vn.edu.hcmut.botp.model.BOTPUser;
 import vn.edu.hcmut.botp.repository.UserRepository;
 
 import java.util.Objects;
@@ -16,7 +14,8 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class AuthService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -24,7 +23,7 @@ public class AuthService implements UserDetailsService {
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("Username not found");
         }
-        return new MyUserDetails((BOTPUser)user);
+        return new MyUserDetails(user);
     }
 
 

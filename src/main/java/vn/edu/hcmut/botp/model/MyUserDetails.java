@@ -5,13 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import vn.edu.hcmut.botp.model.constant.UserRole;
+import vn.edu.hcmut.botp.model.entity.BOTPUser;
 
 import java.util.Collection;
 import java.util.Collections;
 
 @Data
 @RequiredArgsConstructor
-
 public class MyUserDetails implements UserDetails {
     private final BOTPUser user;
     @Override

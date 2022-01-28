@@ -3,7 +3,7 @@ package vn.edu.hcmut.botp.repository;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
-import vn.edu.hcmut.botp.model.BOTPUser;
+import vn.edu.hcmut.botp.model.entity.BOTPUser;
 
 @Repository(value = "tbl_user")
 public interface UserRepository extends MongoRepository<BOTPUser, Long> {

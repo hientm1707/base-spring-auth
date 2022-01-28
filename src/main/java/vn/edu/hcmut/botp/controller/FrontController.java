@@ -2,32 +2,40 @@ package vn.edu.hcmut.botp.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import vn.edu.hcmut.botp.model.JWTTokenProvider;
 import vn.edu.hcmut.botp.model.MyUserDetails;
 import vn.edu.hcmut.botp.model.request.LoginRequest;
+import vn.edu.hcmut.botp.model.request.RegisterRequest;
+import vn.edu.hcmut.botp.model.response.BasicResponse;
 import vn.edu.hcmut.botp.model.response.LoginResponse;
+import vn.edu.hcmut.botp.service.UserService;
+import vn.edu.hcmut.botp.utils.JWTTokenProvider;
 
+@Slf4j
 @RestController
+@RequestMapping("/api")
 @RequiredArgsConstructor
 public class FrontController {
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    private JWTTokenProvider tokenProvider;
+    private final JWTTokenProvider tokenProvider;
 
+    private final UserService userService;
+
+    @ResponseBody
     @PostMapping("/login")
     public LoginResponse authenticateUser(@RequestBody LoginRequest loginRequest) {
-
+        log.info("Logging in");
         // Xác thực từ username và password.
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -43,6 +51,12 @@ public class FrontController {
         // Trả về jwt cho người dùng.
         String jwt = tokenProvider.generateToken((MyUserDetails) authentication.getPrincipal());
         return new LoginResponse(jwt);
+    }
+
+    @PostMapping("/register")
+    public BasicResponse registerUser(@RequestBody RegisterRequest registerRequest) {
+        log.info("User is requesting to register a new account: {}", registerRequest.toString());
+        return userService.registerNewAccount(registerRequest);
     }
 
 
