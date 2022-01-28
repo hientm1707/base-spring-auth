@@ -13,7 +13,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 
 public class MyUserDetails implements UserDetails {
-    private final User user;
+    private final BOTPUser user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority(UserRole.USER.getRole()));
