@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import vn.edu.hcmut.botp.model.MyUserDetails;
+import vn.edu.hcmut.botp.model.AgentUserDetails;
 import vn.edu.hcmut.botp.repository.UserRepository;
 
 import java.util.Objects;
@@ -23,7 +23,7 @@ public class AuthService implements UserDetailsService {
         if (Objects.isNull(user)) {
             throw new UsernameNotFoundException("Username not found");
         }
-        return new MyUserDetails(user);
+        return new AgentUserDetails(user);
     }
 
 

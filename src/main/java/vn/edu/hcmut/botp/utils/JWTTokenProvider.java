@@ -10,10 +10,8 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import vn.edu.hcmut.botp.model.MyUserDetails;
+import vn.edu.hcmut.botp.model.AgentUserDetails;
 
-import javax.annotation.PostConstruct;
-import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 
@@ -26,7 +24,7 @@ public class JWTTokenProvider {
     private final long JWT_EXPIRATION = 604800000L;
 
 
-    public String generateToken(MyUserDetails userDetails) {
+    public String generateToken(AgentUserDetails userDetails) {
         var now = System.currentTimeMillis();
         Date expiryDate = new Date(now + JWT_EXPIRATION);
         Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);

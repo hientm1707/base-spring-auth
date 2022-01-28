@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import vn.edu.hcmut.botp.model.MyUserDetails;
+import vn.edu.hcmut.botp.model.AgentUserDetails;
 import vn.edu.hcmut.botp.model.request.LoginRequest;
 import vn.edu.hcmut.botp.model.request.RegisterRequest;
 import vn.edu.hcmut.botp.model.response.BasicResponse;
@@ -44,13 +44,19 @@ public class FrontController {
                 )
         );
 
+        var userDetails = (AgentUserDetails) authentication.getPrincipal();
         // Nếu không xảy ra exception tức là thông tin hợp lệ
         // Set thông tin authentication vào Security Context
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         // Trả về jwt cho người dùng.
-        String jwt = tokenProvider.generateToken((MyUserDetails) authentication.getPrincipal());
-        return new LoginResponse(jwt);
+        String jwt = tokenProvider.generateToken(userDetails);
+        return LoginResponse.of(
+                jwt,
+                userDetails.getUsername(),
+                userDetails.getPassword(),
+                userDetails.getRoles()
+        );
     }
 
     @PostMapping("/register")

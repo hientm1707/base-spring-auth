@@ -2,6 +2,7 @@ package vn.edu.hcmut.botp.model;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,10 +11,11 @@ import vn.edu.hcmut.botp.model.entity.BOTPUser;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Data
 @RequiredArgsConstructor
-public class MyUserDetails implements UserDetails {
+public class AgentUserDetails implements UserDetails {
     private final BOTPUser user;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -31,6 +33,9 @@ public class MyUserDetails implements UserDetails {
         return user.getUsername();
     }
 
+    public Set<String> getRoles() {
+        return user.getRoles();
+    }
     @Override
     public boolean isAccountNonExpired() {
         return true;

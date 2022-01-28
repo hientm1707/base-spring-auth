@@ -28,7 +28,8 @@ public class UserServiceImpl implements UserService {
                     AgentConstant.USER_EXISTED);
         }
 
-        userRepository.save(new BOTPUser(registerRequest.getUsername(), bCryptPasswordEncoder.encode(registerRequest.getPassword())));
+
+        userRepository.save(new BOTPUser(registerRequest.getUsername(), bCryptPasswordEncoder.encode(registerRequest.getPassword()), registerRequest.getEmail(), registerRequest.getRoles()));
         return new BasicResponse(true);
     }
 
