@@ -1,13 +1,12 @@
 package vn.edu.hcmut.botp.model.constant;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum UserRole {
 
-    USER("USER_ROLE"),
-    DEVELOPER("DEVELOPER_ROLE"),
-    ADMIN("ADMIN_ROLE");
+    USER("USER"),
+    PREMIUM("PREMIUM"),
+    ADMIN("ADMIN");
 
     private final String role;
 
@@ -15,5 +14,8 @@ public enum UserRole {
         this.role = role;
     }
 
-
+    @JsonValue
+    public String getRole() {
+        return this.role;
+    }
 }

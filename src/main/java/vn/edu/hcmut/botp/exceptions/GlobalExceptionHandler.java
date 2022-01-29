@@ -17,13 +17,13 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {Exception.class})
     public ErrorResponse handleCommonException(Exception e) {
-        log.info("Caught an unexpected exception: {}", e.getMessage());
+        log.error("Caught an unexpected exception: {}", e.getMessage());
         return ErrorResponse.of(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @ExceptionHandler(value = {BadCredentialsException.class})
     public ErrorResponse handleCommonException(BadCredentialsException e) {
-        log.info("{}", e.getMessage());
+        log.error("{}", e.getMessage());
         return ErrorResponse.of(e.getMessage(), HttpStatus.BAD_REQUEST.value());
     }
 }

@@ -3,6 +3,7 @@ package vn.edu.hcmut.botp.model.request;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
+import vn.edu.hcmut.botp.model.constant.UserRole;
 
 import javax.validation.constraints.Email;
 import java.util.Set;
@@ -19,5 +20,5 @@ public class RegisterRequest {
     private String email;
 
     @NonNull
-    private Set<String> roles;
+    private Set<UserRole> roles;
 }

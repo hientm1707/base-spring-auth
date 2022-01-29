@@ -33,7 +33,7 @@ public class AgentUserDetails implements UserDetails {
         return user.getUsername();
     }
 
-    public Set<String> getRoles() {
+    public Set<UserRole> getRoles() {
         return user.getRoles();
     }
     @Override
