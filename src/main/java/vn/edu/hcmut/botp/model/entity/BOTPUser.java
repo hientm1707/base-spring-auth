@@ -9,6 +9,7 @@ import org.springframework.lang.NonNull;
 import vn.edu.hcmut.botp.model.constant.UserRole;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Data
@@ -26,6 +27,6 @@ public class BOTPUser implements Serializable {
     private String email;
 
     @NonNull
-    private Set<String> roles;
+    private Set<UserRole> roles = new HashSet<>();
 
 }

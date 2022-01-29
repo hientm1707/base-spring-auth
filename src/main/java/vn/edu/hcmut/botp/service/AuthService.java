@@ -9,6 +9,7 @@ import vn.edu.hcmut.botp.model.AgentUserDetails;
 import vn.edu.hcmut.botp.repository.UserRepository;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -19,12 +20,10 @@ public class AuthService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByUsername(username);
-        if (Objects.isNull(user)) {
-            throw new UsernameNotFoundException("Username not found");
-        }
+        var user = Optional.of(userRepository.findByUsername(username)).orElseThrow(
+                () ->new UsernameNotFoundException("Username not found")
+        );
         return new AgentUserDetails(user);
     }
-
 
 }

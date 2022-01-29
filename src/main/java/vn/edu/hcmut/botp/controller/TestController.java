@@ -18,7 +18,7 @@ public class TestController {
     public String premiumAccess() {
         return "Premium Content.";
     }
-    hide
+
 
     @GetMapping("/admin")
     @PreAuthorize("hasRole('ADMIN')")
