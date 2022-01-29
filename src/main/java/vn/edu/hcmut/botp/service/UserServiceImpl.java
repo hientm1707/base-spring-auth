@@ -9,6 +9,7 @@ import vn.edu.hcmut.botp.model.request.RegisterRequest;
 import vn.edu.hcmut.botp.model.response.BasicResponse;
 import vn.edu.hcmut.botp.repository.UserRepository;
 
+import javax.validation.Valid;
 import java.util.Optional;
 
 @Service
@@ -19,7 +20,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder bCryptPasswordEncoder;
 
     @Override
-    public BasicResponse registerNewAccount(RegisterRequest registerRequest) {
+    public BasicResponse registerNewAccount(@Valid RegisterRequest registerRequest) {
 
         var user = Optional.ofNullable(userRepository.findByUsername(registerRequest.getUsername()));
         if (user.isPresent()){

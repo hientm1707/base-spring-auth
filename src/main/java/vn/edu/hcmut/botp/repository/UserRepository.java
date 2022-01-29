@@ -11,4 +11,6 @@ public interface UserRepository extends MongoRepository<BOTPUser, Long> {
     @Query(value = "{ 'username' : ?0 }")
     BOTPUser findByUsername(String username);
 
+    @Query(value = "{}", delete = true)
+    Boolean deleteUserDatabase();
 }

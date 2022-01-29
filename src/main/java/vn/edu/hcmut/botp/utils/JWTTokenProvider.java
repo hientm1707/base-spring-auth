@@ -23,11 +23,12 @@ public class JWTTokenProvider {
 
     private final long JWT_EXPIRATION = 604800000L;
 
+    private static Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
 
     public String generateToken(AgentUserDetails userDetails) {
         var now = System.currentTimeMillis();
         Date expiryDate = new Date(now + JWT_EXPIRATION);
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
         return Jwts.builder()
                 .setSubject("Auth")
                 .setIssuedAt(new Date(now))
@@ -48,7 +49,7 @@ public class JWTTokenProvider {
 
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(JWT_SECRET).parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token);
             return true;
         } catch (MalformedJwtException ex) {
             log.error("Invalid JWT token");

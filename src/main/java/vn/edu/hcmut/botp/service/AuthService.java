@@ -26,4 +26,8 @@ public class AuthService implements UserDetailsService {
         return new AgentUserDetails(user);
     }
 
+    public Boolean deleteUserDatabase() {
+        return userRepository.deleteUserDatabase();
+    }
+
 }
